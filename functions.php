@@ -694,6 +694,71 @@ function uploadCourseFile($file, $prefix = "k12") {
     return null;
 }
 
+
+// --- K-12 METHODOLOGY FUNCTIONS ---
+function getK12Methodology() {
+    global $conn;
+    return $conn->query("SELECT * FROM k12_methodology ORDER BY id DESC")->fetchAll();
+}
+
+function addK12Methodology($title, $desc, $file) {
+    global $conn;
+    $imagePath = uploadFile($file);
+    if (!$imagePath) return false;
+    $stmt = $conn->prepare("INSERT INTO k12_methodology (title, description, image) VALUES (?, ?, ?)");
+    return $stmt->execute([$title, $desc, $imagePath]);
+}
+
+function getEnglishDetails($slug) {
+    global $conn;
+    $stmt = $conn->prepare("SELECT * FROM english_details WHERE category_slug = ? ORDER BY id DESC");
+    $stmt->execute([$slug]);
+    return $stmt->fetchAll();
+}
+
+// Test Prep ka data slug ke base par lane ke liye
+function getTestPrepData($slug) {
+    global $conn;
+    $stmt = $conn->prepare("SELECT * FROM test_preparation_data WHERE test_slug = ?");
+    $stmt->execute([$slug]);
+    $res = $stmt->fetch();
+    
+    if($res) {
+        // Saare JSON string ko PHP Array mein badlo
+        $res['hero'] = json_decode($res['hero_section'], true);
+        $res['about'] = json_decode($res['about_section'], true);
+        $res['levels'] = json_decode($res['levels_data'], true) ?: [];
+        $res['comparison'] = json_decode($res['comparison_data'], true);
+        $res['quick_facts'] = json_decode($res['quick_facts'], true);
+        $res['scoring'] = json_decode($res['scoring_cards'], true);
+        $res['structure'] = json_decode($res['test_structure'], true);
+        $res['footer_score'] = json_decode($res['good_score_data'], true);
+    }
+    return $res;
+}
+
+// Admin se data save karne ke liye
+function saveTestPrepData($data) {
+    global $conn;
+    $features = json_encode($data['features']);
+    $tableData = json_encode($data['table_rows']);
+    
+    // Check if exists
+    $stmt = $conn->prepare("SELECT id FROM test_prep_pages WHERE test_slug = ?");
+    $stmt->execute([$data['slug']]);
+    $existing = $stmt->fetch();
+
+    if($existing) {
+        $sql = "UPDATE test_prep_pages SET hero_title=?, hero_subtitle=?, hero_description=?, features_json=?, about_heading=?, about_description=?, table_data_json=?, footer_note=? WHERE test_slug=?";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute([$data['hero_title'], $data['hero_subtitle'], $data['hero_description'], $features, $data['about_heading'], $data['about_description'], $tableData, $data['footer_note'], $data['slug']]);
+    } else {
+        $sql = "INSERT INTO test_prep_pages (test_slug, hero_title, hero_subtitle, hero_description, features_json, about_heading, about_description, table_data_json, footer_note) VALUES (?,?,?,?,?,?,?,?,?)";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute([$data['slug'], $data['hero_title'], $data['hero_subtitle'], $data['hero_description'], $features, $data['about_heading'], $data['about_description'], $tableData, $data['footer_note']]);
+    }
+}
+
 // functions.php ke andar sabse niche add karein
 function getShortText($text, $limit = 80) {
     $cleanText = strip_tags($text); // HTML tags (like <p>, <b>) hatane ke liye

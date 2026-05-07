@@ -116,8 +116,10 @@ $(document).ready(function() {
         $('#submitBtn').attr('disabled', true).text('Sending...');
         
         $.ajax({
-            url: 'api/public/contact-submit.php', // API Path
-            method: 'POST',
+            // url: 'api/public/contact-submit.php', // API Path
+            // method: 'POST',
+             url: 'https://api.mygges.com/public/contact-submit.php', // Static URL ki jagah sub-domain URL
+    method: 'POST',
             data: $(this).serialize(),
             success: function(response) {
                 if(response.success) {
