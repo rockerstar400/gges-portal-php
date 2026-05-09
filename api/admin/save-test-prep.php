@@ -351,6 +351,7 @@ if ($slug == 'shsat') {
     // sbac_assess_heading, sbac_assess_desc, sbac_assess_points_json
 
 
+
     // --- 7. ELA SPECIFIC LOGIC (Updated for React Compatibility) ---
     if ($slug == 'ela') {
         $admin_points = [];
@@ -385,5 +386,6 @@ if ($slug == 'shsat') {
         ]);
     }
 }
+
 
 ?>

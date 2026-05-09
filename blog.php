@@ -6,6 +6,7 @@ include('includes/header.php');
 include('includes/navbar.php'); 
 
 // Helper function to truncate text (Same as before)
+
 ?>
 
 <div class="blog-page-wrapper py-5" style="background-image: url('assets/images/work-bg.png'); background-size: contain; background-color: #F0F8FF; min-height: 100vh;">

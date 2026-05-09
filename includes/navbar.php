@@ -1,56 +1,6 @@
 <?php
 // Industry Standard: Navigation Data Array
-// In links ko humne hamari banayi hui dynamic files se map kiya hai
-
-
-// $sections = [
-//     "Math" => [
-//         "link" => "courses-maths.php",
-//         "courses" => [
-//             ["name" => "MATH COMMON CORE", "link" => "courses-maths.php#math"],
-//             ["name" => "MATH ALGEBRA 1 & 2", "link" => "courses-maths.php#algebra"],
-//             ["name" => "MATH GEOMETRY", "link" => "courses-maths.php#geometry"],
-//             ["name" => "MATH KANGAROO", "link" => "courses-maths.php#kangaroo"],
-//             ["name" => "MATH AMC", "link" => "courses-maths.php#amc"],
-//             ["name" => "MATH PRE-CALCULUS", "link" => "courses-maths.php#science"]
-//         ]
-//     ],
-//     "English" => [
-//         "link" => "courses-english.php",
-//         "courses" => [
-//             ["name" => "COMMON CORE ENGLISH", "link" => "courses-english.php#common"],
-//             ["name" => "ELA", "link" => "courses-english.php#ela"],
-//             ["name" => "ISEE", "link" => "courses-english.php#isee"],
-//             ["name" => "REGISTRATION", "link" => "courses-english.php#registration"]
-//         ]
-//     ],
-// "Test Prep" => [
-//         "link" => "#",
-//         "courses" => [
-//             ["name" => "SAT", "link" => "course-sat.php"],
-//             ["name" => "SSAT", "link" => "course-ssat.php"],
-//             ["name" => "PSAT", "link" => "course-psat.php"],
-//             ["name" => "SHSAT", "link" => "course-shsat.php"],
-//             ["name" => "ISEE", "link" => "course-isee.php"],
-//             ["name" => "ELA", "link" => "course-ela.php"],
-//             ["name" => "SCAT", "link" => "course-scat.php"],
-//             ["name" => "AMC", "link" => "course-amc.php"],
-//             ["name" => "KANGAROO", "link" => "course-kangaroo.php"],
-//             ["name" => "ACT", "link" => "course-act.php"],
-//             ["name" => "COGAT", "link" => "course-cogat.php"],
-//             ["name" => "SBAC", "link" => "course-sbac.php"],
-//             ["name" => "ACCUPLACER", "link" => "course-accuplacer.php"],
-//             ["name" => "STB", "link" => "course-stb.php"]
-//         ]
-//     ],
-//     "K-12" => [
-//         "link" => "courses-k12.php",
-//         "courses" => [
-//             ["name" => "Methodology", "link" => "courses-k12.php#methodology"],
-//             ["name" => "Subject Expertise", "link" => "courses-k12.php#expertise"]
-//         ]
-//     ]
-// ];
+// Saare links ko unified 'test-preparation.php' par map kiya gaya hai logic ke saath
 
 $sections = [
     "Math" => [
@@ -73,7 +23,7 @@ $sections = [
             ["name" => "REGISTRATION", "link" => "courses-english.php#registration"]
         ]
     ],
-   "Test Prep" => [
+    "Test Prep" => [
         "link" => "#",
         "courses" => [
             ["name" => "SAT", "link" => "test-preparation.php?type=sat"],

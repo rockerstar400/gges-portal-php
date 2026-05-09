@@ -309,6 +309,7 @@ $data = getTestPrepData($slug);
                     </div>
                 </div>
 
+
 <?php elseif ($slug == 'ela'): ?>
 <!-- ==========================================================================
      PAGE: ELA TEST ADMIN (REPLICATING REACT DESIGN)
@@ -363,6 +364,70 @@ $data = getTestPrepData($slug);
     </div>
 </div>
 
+
+                <?php elseif ($slug == 'ela'): ?>
+                <!-- ==========================================================================
+                     PAGE: ELA TEST ADMIN
+                =========================================================================== -->
+
+                <!-- === SECTION 1: HERO SECTION === -->
+                <div class="card mb-4 border-primary shadow-sm">
+                    <div class="card-header bg-primary text-white fw-bold">Hero Section</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="small fw-bold">Hero Title</label>
+                            <input type="text" name="hero[title]" value="<?= $data['hero']['title'] ?? '' ?>" class="form-control" placeholder="Hero Title">
+                        </div>
+                        <div class="mb-3">
+                            <label class="small fw-bold">Hero Description</label>
+                            <textarea name="hero[description]" class="form-control" rows="3" placeholder="Hero Description"><?= $data['hero']['description'] ?? '' ?></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === SECTION 2: INTRO SECTION === -->
+                <div class="card mb-4 border-info shadow-sm">
+                    <div class="card-header bg-info text-white fw-bold">Intro Section</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="small fw-bold">Section Title (e.g. Who takes this test?)</label>
+                            <input type="text" name="ela_intro_title" value="<?= $data['ela_intro_title'] ?? '' ?>" class="form-control" placeholder="Intro Title">
+                        </div>
+                        <div class="mb-3">
+                            <label class="small fw-bold">Intro Content (Paragraphs)</label>
+                            <textarea name="ela_intro_content" class="form-control" rows="6" placeholder="Paste the content here..."><?= $data['ela_intro_content'] ?? '' ?></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === SECTION 3: ADMINISTRATION SECTION (Repeater) === -->
+                <div class="card mb-4 border-secondary shadow-sm">
+                    <div class="card-header bg-light fw-bold d-flex justify-content-between align-items-center">
+                        Administration Section
+                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="addElaAdminPoint()">+ Add Administration Point</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="small fw-bold">Administration Heading</label>
+                            <input type="text" name="ela_admin_title" value="<?= $data['ela_admin_title'] ?? '' ?>" class="form-control" placeholder="Administration Heading">
+                        </div>
+                        <div id="ela-admin-container">
+                            <?php 
+                            $adminPoints = json_decode($data['ela_admin_json'] ?? '[]', true);
+                            foreach($adminPoints as $point): 
+                            ?>
+                            <div class="border rounded p-3 mb-2 bg-light position-relative shadow-sm">
+                                <button type="button" class="btn btn-sm btn-link text-danger position-absolute top-0 end-0 m-1 remove-btn">Remove</button>
+                                <div class="mb-2">
+                                    <input type="text" name="ela_admin_name[]" value="<?= $point['name'] ?>" class="form-control fw-bold" placeholder="Title">
+                                </div>
+                                <textarea name="ela_admin_desc[]" class="form-control small" rows="2" placeholder="Description"><?= $point['desc'] ?></textarea>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+>>>>>>> 3b8e8e8565be720095338ba4c36ee3cc8408dc26
                 <?php elseif ($slug == 'scat'): ?>
                 <!-- ==========================================================================
                      PAGE: SCAT TEST ADMIN
@@ -1523,6 +1588,7 @@ function addStbTimingRow() {
     document.getElementById('stb-timing-table').insertAdjacentHTML('beforeend', html);
 }
 
+
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <script>
     var quill = new Quill('#quill-editor', {
@@ -1553,6 +1619,7 @@ function addStbTimingRow() {
         document.getElementById('ela-admin-points-container').insertAdjacentHTML('beforeend', html);
     }
 </script>
+
 </script>
 
 <?php include 'includes/footer.php'; ?>

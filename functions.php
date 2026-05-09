@@ -3,6 +3,7 @@ require_once 'config/db.php';
 
 
 
+
 // function uploadFile($file, $targetDir = "uploads/") {
    
 //     if (!$file || !isset($file['tmp_name']) || empty($file['tmp_name'])) {
@@ -10,18 +11,28 @@ require_once 'config/db.php';
 //     }
 
 //     if (!is_dir("../../" . $targetDir)) mkdir("../../" . $targetDir, 0777, true);
+
+// --- 1. IMAGE UPLOAD HELPER ---
+// function uploadFile($file, $targetDir = "uploads/") {
+//     if (!is_dir($targetDir)) mkdir($targetDir, 0777, true)
     
 //     $fileName = time() . '_' . basename($file["name"]);
 //     $targetPath = $targetDir . $fileName;
     
+
 //     if (move_uploaded_file($file["tmp_name"], "../../" . $targetPath)) {
+
+//     if (move_uploaded_file($file["tmp_name"], $targetPath))
 //         return $targetPath;
 //     }
 //     return null;
 // }
 
 function uploadFile($file, $targetDir = "uploads/") {
+
     // 1. Safety Check
+
+    // Safety Check: Agar file upload hi nahi hui toh null return karo
     if (!$file || !isset($file['tmp_name']) || empty($file['tmp_name'])) {
         return null;
     }
@@ -47,6 +58,14 @@ function uploadFile($file, $targetDir = "uploads/") {
         return $targetDir . $fileName; 
     }
 
+    if (!is_dir("../../" . $targetDir)) mkdir("../../" . $targetDir, 0777, true);
+    
+    $fileName = time() . '_' . basename($file["name"]);
+    $targetPath = $targetDir . $fileName;
+    
+    if (move_uploaded_file($file["tmp_name"], "../../" . $targetPath)) {
+        return $targetPath;
+    }
     return null;
 }
 
@@ -738,6 +757,7 @@ function getEnglishDetails($slug) {
 // Test Prep ka data slug ke base par lane ke liye
 function getTestPrepData($slug) {
     global $conn;
+
     try {
         $stmt = $conn->prepare("SELECT * FROM test_preparation_data WHERE test_slug = ?");
         $stmt->execute([$slug]);
@@ -781,6 +801,23 @@ function getTestPrepData($slug) {
         return null;
     }
     return null;
+
+    $stmt = $conn->prepare("SELECT * FROM test_preparation_data WHERE test_slug = ?");
+    $stmt->execute([$slug]);
+    $res = $stmt->fetch();
+    
+    if($res) {
+        // Saare JSON string ko PHP Array mein badlo
+        $res['hero'] = json_decode($res['hero_section'], true);
+        $res['about'] = json_decode($res['about_section'], true);
+        $res['levels'] = json_decode($res['levels_data'], true) ?: [];
+        $res['comparison'] = json_decode($res['comparison_data'], true);
+        $res['quick_facts'] = json_decode($res['quick_facts'], true);
+        $res['scoring'] = json_decode($res['scoring_cards'], true);
+        $res['structure'] = json_decode($res['test_structure'], true);
+        $res['footer_score'] = json_decode($res['good_score_data'], true);
+    }
+    return $res;
 }
 
 // Admin se data save karne ke liye
@@ -806,13 +843,21 @@ function saveTestPrepData($data) {
 }
 
 // functions.php ke andar sabse niche add karein
+// Isse pehle ka code...
+
 function getShortText($text, $limit = 80) {
-    $cleanText = strip_tags($text); // HTML tags (like <p>, <b>) hatane ke liye
-    if (strlen($cleanText) > $limit) {
-        return substr($cleanText, 0, $limit) . "...";
+    // 1. HTML tags hatayein
+    $cleanText = strip_tags($text); 
+    
+    // 2. mb_strlen use karein (Unicode support ke liye)
+    if (mb_strlen($cleanText) > $limit) {
+        // 3. mb_substr use karein taaki Hindi ya Emoji na tute
+        return mb_substr($cleanText, 0, $limit) . "...";
     }
+    
     return $cleanText;
 }
 
-?>
+
+
 

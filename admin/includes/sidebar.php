@@ -1,4 +1,5 @@
 <?php 
+
 $current_page = basename($_SERVER['PHP_SELF']);
 
 // Groups for active state logic
@@ -30,11 +31,20 @@ $testPrepModules = [
     'accuplacer' => 'manage-accuplacer.php',
     'stb' => 'manage-stb.php'
 ];
+$currentType = $_GET['type'] ?? '';
+$maths = ['math-common-core', 'math-algebra', 'math-geometry', 'math-amc', 'math-kangaroo', 'math-science'];
+$english = ['eng-common-lang', 'eng-core-ela', 'eng-about-ela', 'eng-about-isee', 'eng-registration'];
+$testPrep = ['sat', 'ssat', 'psat', 'shsat', 'isee', 'ela', 'scat', 'amc', 'kangaroo', 'act', 'cogat', 'sbac', 'accuplacer', 'stb'];
+$k12 = ['k12-management']; // Single page for K-12
+
 ?>
 
 <div class="sidebar bg-dark text-white shadow-lg custom-sidebar">
     <div class="p-4 text-center border-bottom border-secondary mb-3">
+
         <h5 class="fw-bold text-uppercase tracking-wider m-0" style="color: #305CDE;">GGES ADMIN</h5>
+        <!-- <h5 class="fw-bold text-uppercase tracking-wider m-0">GGES ADMIN</h5> -->
+
     </div>
 
     <div class="nav flex-column px-2 admin-nav-links">
