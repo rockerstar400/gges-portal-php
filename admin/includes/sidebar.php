@@ -2,7 +2,15 @@
 $current_page = basename($_SERVER['PHP_SELF']);
 
 // Groups for active state logic
-$mathsPages = ['manage-math-common.php', 'manage-math-algebra.php', 'manage-math-geometry.php', 'manage-math-amc.php', 'manage-math-kangaroo.php', 'manage-math-science.php'];
+$mathsPages = [
+    'manage-math-common.php', 
+    'manage-math-algebra.php', 
+    'manage-math-geometry.php', 
+    'manage-math-amc.php', 
+    'manage-math-kangaroo.php', 
+    'manage-math-science.php'
+];
+// $mathsPages = ['manage-math-common.php', 'manage-math-algebra.php', 'manage-math-geometry.php', 'manage-math-amc.php', 'manage-math-kangaroo.php', 'manage-math-science.php'];
 $englishPages = ['manage-eng-common.php', 'manage-eng-ela.php', 'manage-eng-about-ela.php', 'manage-eng-isee.php', 'manage-eng-reg.php'];
 
 // 14 Modular Test Prep Files Mapping
@@ -76,7 +84,7 @@ $testPrepModules = [
         <hr class="border-secondary my-3">
 
         <!-- 📐 MATHS -->
-        <div class="nav-item">
+        <!-- <div class="nav-item">
             <a class="nav-link text-white py-3 px-4 d-flex justify-content-between align-items-center <?php echo in_array($current_page, $mathsPages) ? '' : 'collapsed'; ?>" data-bs-toggle="collapse" href="#mathMenu">
                 <span><i class="fas fa-calculator me-2 text-info"></i> Maths</span>
                 <i class="fas fa-chevron-down small"></i>
@@ -86,7 +94,42 @@ $testPrepModules = [
                 <a href="manage-math-algebra.php" class="nav-link py-2 small <?php echo ($current_page=='manage-math-algebra.php')?'text-primary fw-bold':'text-white-50'; ?>">Algebra</a>
                 <a href="manage-math-amc.php" class="nav-link py-2 small <?php echo ($current_page=='manage-math-amc.php')?'text-primary fw-bold':'text-white-50'; ?>">Math AMC</a>
             </div>
-        </div>
+        </div> -->
+
+        <!-- 📐 MATHS CATEGORY -->
+<div class="nav-item">
+    <a class="nav-link text-white py-3 px-4 d-flex justify-content-between align-items-center <?php echo in_array($current_page, $mathsPages) ? '' : 'collapsed'; ?>" data-bs-toggle="collapse" href="#mathMenu">
+        <span><i class="fas fa-calculator me-2 text-info"></i> Maths Management</span>
+        <i class="fas fa-chevron-down small"></i>
+    </a>
+    <div class="collapse ps-3 <?php echo in_array($current_page, $mathsPages) ? 'show' : ''; ?>" id="mathMenu">
+        
+        <a href="manage-math-common.php" class="nav-link py-2 small <?php echo ($current_page=='manage-math-common.php')?'text-primary fw-bold':'text-white-50'; ?>">
+            <i class="fas fa-caret-right me-1" style="font-size: 10px;"></i> Common Core Math
+        </a>
+        
+        <a href="manage-math-algebra.php" class="nav-link py-2 small <?php echo ($current_page=='manage-math-algebra.php')?'text-primary fw-bold':'text-white-50'; ?>">
+            <i class="fas fa-caret-right me-1" style="font-size: 10px;"></i> Math Algebra
+        </a>
+        
+        <a href="manage-math-geometry.php" class="nav-link py-2 small <?php echo ($current_page=='manage-math-geometry.php')?'text-primary fw-bold':'text-white-50'; ?>">
+            <i class="fas fa-caret-right me-1" style="font-size: 10px;"></i> Geometry
+        </a>
+        
+        <a href="manage-math-amc.php" class="nav-link py-2 small <?php echo ($current_page=='manage-math-amc.php')?'text-primary fw-bold':'text-white-50'; ?>">
+            <i class="fas fa-caret-right me-1" style="font-size: 10px;"></i> Math AMC
+        </a>
+        
+        <a href="manage-math-kangaroo.php" class="nav-link py-2 small <?php echo ($current_page=='manage-math-kangaroo.php')?'text-primary fw-bold':'text-white-50'; ?>">
+            <i class="fas fa-caret-right me-1" style="font-size: 10px;"></i> Math Kangaroo
+        </a>
+        
+        <a href="manage-math-science.php" class="nav-link py-2 small <?php echo ($current_page=='manage-math-science.php')?'text-primary fw-bold':'text-white-50'; ?>">
+            <i class="fas fa-flask me-1" style="font-size: 10px;"></i> Common Core Science
+        </a>
+        
+    </div>
+</div>
 
         <!-- 🔤 ENGLISH MANAGEMENT -->
 <div class="small text-uppercase px-4 mt-3 mb-1 text-warning fw-bold" style="font-size: 10px;">English Management</div>

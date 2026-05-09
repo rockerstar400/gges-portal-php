@@ -1,6 +1,7 @@
 <?php 
 require_once 'functions.php';
 include 'includes/header.php'; 
+include 'includes/navbar.php';
 
 // Data fetching (Admin slugs ke according)
 $langData = getTestPrepData('eng-common-lang'); // Common English Language
