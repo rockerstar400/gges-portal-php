@@ -7,9 +7,15 @@ if (session_status() === PHP_SESSION_NONE) {
 // 2. Response type JSON
 header('Content-Type: application/json');
 
-// 3. Database include karein
-// require_once '../../functions.php';
-require_once dirname(__DIR__, 3) . '/functions.php';
+// 3. SMART PATH LOGIC (Universal Fix)
+// Live server par path: api/auth/login.php (2 level up)
+// Local Windows par path: admin/api/auth/login.php (3 level up)
+if (file_exists(dirname(__DIR__, 2) . '/functions.php')) {
+    require_once dirname(__DIR__, 2) . '/functions.php';
+} else {
+    require_once dirname(__DIR__, 3) . '/functions.php';
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $username = trim($_POST['username'] ?? '');
@@ -21,7 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-        global $conn;
+        global $conn; // Yeh connection 'functions.php' ke 'db.php' se aayega
+
+        // Check karein connection available hai ya nahi
+        if (!isset($conn)) {
+            echo json_encode(['success' => false, 'message' => 'Database connection failed inside API']);
+            exit;
+        }
 
         $stmt = $conn->prepare("SELECT * FROM admin_users WHERE username = ? LIMIT 1");
         $stmt->execute([$username]);
@@ -42,7 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
     } catch (PDOException $e) {
-        echo json_encode(['success' => false, 'message' => 'Database error']);
+        // Live par error message thoda simple rakhein
+        echo json_encode(['success' => false, 'message' => 'Database error: ' . $e->getMessage()]);
     }
 } else {
     echo json_encode(['success' => false, 'message' => 'Method not allowed']);
