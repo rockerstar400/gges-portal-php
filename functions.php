@@ -754,7 +754,9 @@ function getTestPrepData($slug) {
                 'ela_core_desc_json',
                 'about_isee_title_json',   // <--- Nayi Line 1
     'about_isee_purpose_json', // <--- Nayi Line 2
-    'about_isee_struct_json'   // <--- Nayi Line 3
+    'about_isee_struct_json',   // <--- Nayi Line 3
+     'tutoring_chapters_json',
+     'geometry_chapters_json'
                 
             ];
             
