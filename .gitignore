@@ -1,0 +1,7 @@
+# Local duplicate folders ko ignore karein
+admin/api/
+admin/assets/
+# Database config ko local hi rehne dein (Optional)
+# config/db.php
+# ZIP files ko ignore karein
+*.zip
