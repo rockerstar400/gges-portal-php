@@ -349,5 +349,41 @@ if ($slug == 'shsat') {
 
     // SQL UPDATE execution mein ye columns add karein:
     // sbac_assess_heading, sbac_assess_desc, sbac_assess_points_json
+
+
+    // --- 7. ELA SPECIFIC LOGIC (Updated for React Compatibility) ---
+    if ($slug == 'ela') {
+        $admin_points = [];
+        if(isset($_POST['admin_pt_title'])) {
+            foreach($_POST['admin_pt_title'] as $k => $val) {
+                if(!empty($val)) {
+                    $admin_points[] = [
+                        'title' => $val,
+                        'description' => $_POST['admin_pt_desc'][$k] ?? ''
+                    ];
+                }
+            }
+        }
+        
+        $sql = "UPDATE test_preparation_data SET 
+                ela_hero_title = ?, 
+                ela_hero_desc = ?, 
+                ela_intro_heading = ?, 
+                ela_intro_desc = ?, 
+                ela_admin_heading = ?, 
+                ela_admin_points_json = ? 
+                WHERE test_slug = 'ela'";
+        
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+            $_POST['ela_hero_title'], 
+            $_POST['ela_hero_desc'], 
+            $_POST['ela_intro_heading'], 
+            $_POST['ela_intro_desc'], 
+            $_POST['ela_admin_heading'], 
+            json_encode($admin_points)
+        ]);
+    }
 }
+
 ?>

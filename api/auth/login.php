@@ -10,7 +10,6 @@ header('Content-Type: application/json');
 // 3. Database include karein
 // require_once '../../functions.php';
 require_once dirname(__DIR__, 3) . '/functions.php';
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $username = trim($_POST['username'] ?? '');
