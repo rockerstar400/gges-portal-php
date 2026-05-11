@@ -776,7 +776,11 @@ function getTestPrepData($slug) {
     'about_isee_purpose_json', // <--- Nayi Line 2
     'about_isee_struct_json',   // <--- Nayi Line 3
      'tutoring_chapters_json',
-     'geometry_chapters_json'
+     'geometry_chapters_json',
+     'amc_participate_json', 
+    'amc_why_json', 
+    'amc_comp_json',
+    
                 
             ];
             

@@ -113,7 +113,7 @@ include('includes/navbar.php');
 $why_choose_list = getAll('why_choose'); 
 ?>
 
-<section class="why-choose-section py-5">
+<!-- <section class="why-choose-section py-5">
     <div class="container">
         <div class="row g-4">
             <?php foreach($why_choose_list as $item): ?>
@@ -127,7 +127,155 @@ $why_choose_list = getAll('why_choose');
             <?php endforeach; ?>
         </div>
     </div>
+</section> -->
+
+
+<!-- AOS Library for Motion Effects (If not in header) -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<style>
+    .why-choose-wrapper {
+        background-color: #F0F8FF;
+        background-image: url('assets/images/work-bg.png'); /* React: backgroundImage */
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        overflow: hidden;
+        padding: 100px 0;
+    }
+
+    /* Floating 3D Image Animation */
+    .floating-edit-img {
+        position: absolute;
+        top: 10%;
+        left: 10%;
+        width: 120px;
+        opacity: 0.8;
+        animation: float 4s ease-in-out infinite;
+        z-index: 1;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+
+    /* Heading Styles */
+    .section-title-react {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 40px;
+        color: #1A202C;
+        margin-bottom: 10px;
+    }
+
+    .title-underline {
+        width: 100px;
+        height: 4px;
+        background-color: #3B82F6;
+        margin: 0 auto 25px;
+        border-radius: 50px;
+    }
+
+    /* 3D Card Styling */
+    .react-card-3d {
+        background: #ffffff;
+        padding: 35px 30px;
+        border-radius: 24px; /* rounded-2xl */
+        border: 1px solid #f3f4f6;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        display: flex;
+        align-items: flex-start;
+        height: 100%;
+        cursor: pointer;
+        transform-style: preserve-3d;
+    }
+
+    .react-card-3d:hover {
+        transform: translateY(-12px) rotateX(2deg) scale(1.02);
+        box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Icon Circle */
+    .icon-circle-react {
+        width: 64px;
+        height: 64px;
+        background-color: #EFF6FF; /* blue-50 */
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+        flex-shrink: 0;
+        transition: 0.4s;
+    }
+
+    .react-card-3d:hover .icon-circle-react {
+        transform: rotate(15deg) scale(1.1);
+    }
+
+    .card-title-react {
+        font-weight: 700;
+        font-size: 20px;
+        color: #1f2937;
+        margin-bottom: 8px;
+    }
+
+    .card-desc-react {
+        color: #4b5563;
+        line-height: 1.6;
+        font-size: 16px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .section-title-react { font-size: 32px; }
+        .floating-edit-img { display: none; }
+    }
+</style>
+
+<section class="why-choose-wrapper">
+    <!-- Floating Decoration -->
+    <img src="assets/images/editImg.png" class="floating-edit-img shadow-sm" alt="deco">
+
+    <div class="container position-relative" style="z-index: 2;">
+        <!-- Heading Section -->
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="section-title-react">Why Choose Us?</h2>
+            <div class="title-underline"></div>
+            <p class="text-secondary fs-5 mx-auto" style="max-width: 700px;">
+                We provide a learning experience that is effective, convenient, and tailored to you.
+            </p>
+        </div>
+
+        <!-- Cards Grid -->
+        <div class="row g-4 justify-content-center">
+            <?php foreach($why_choose_list as $idx => $item): ?>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="<?php echo $idx * 150; ?>">
+                <div class="react-card-3d">
+                    <div class="icon-circle-react">
+                        <img src="<?php echo $item['image']; ?>" alt="icon" style="width: 32px; height: 32px; object-fit: contain;">
+                    </div>
+                    <div>
+                        <h3 class="card-title-react"><?php echo $item['title']; ?></h3>
+                        <p class="card-desc-react"><?php echo $item['description']; ?></p>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
 </section>
+
+<!-- AOS Script (Ensure this is in footer or here) -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 800,
+    once: true,
+  });
+</script>
 
 
 <section class="subjects-section py-5 position-relative overflow-hidden" style="background-color: #F0F8FF;">
@@ -138,7 +286,6 @@ $why_choose_list = getAll('why_choose');
 
     <div class="container py-5">
         <h2 class="text-center fw-bold display-6 mb-5 animate-up">Subjects & Courses</h2>
-
         <div class="row g-4 justify-content-center">
             <?php foreach($subjects as $sub): ?>
             <div class="col-sm-6 col-md-3">
@@ -178,7 +325,6 @@ $why_choose_list = getAll('why_choose');
     </div>
     <?php endforeach; ?>
 </div> -->
-
 <section class="py-5" style="background-color: #F0F8FF;">
     <div class="container py-5 text-center">
         <!-- Animated Badge (React Style) -->

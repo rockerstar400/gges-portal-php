@@ -3,7 +3,7 @@ require_once 'functions.php';
 
 // 1. Data Fetching (React ke Promise.all jaisa)
 $aboutData = getAbout(); 
-$members = getMembers(); 
+
 
 // 2. JSON Decoding (MongoDB Arrays to PHP Arrays)
 $description = json_decode($aboutData['description'] ?? '[]', true);
@@ -13,6 +13,7 @@ $safety = json_decode($aboutData['safety'] ?? '[]', true);
 
 include('includes/header.php'); 
 include('includes/navbar.php'); 
+include 'includes/global-hero.php'; 
 ?>
 
 <div class="about-page-wrapper overflow-hidden" style="background-color: #F0F8FF;">

@@ -64,7 +64,7 @@ $chapters = $prepData['tutoring_chapters'] ?? [['title'=>'','description'=>'','n
                         </div>
 
                         <!-- Nested Sub-items (Chapter Names) -->
-                        <div class="ms-4 p-3 bg-white rounded-3 border">
+                        <!-- <div class="ms-4 p-3 bg-white rounded-3 border">
                             <label class="small fw-bold text-muted mb-2">Chapter Names / Topics:</label>
                             <div class="names-list">
                                 <?php foreach($ch['names'] as $name): ?>
@@ -75,7 +75,28 @@ $chapters = $prepData['tutoring_chapters'] ?? [['title'=>'','description'=>'','n
                                 <?php endforeach; ?>
                             </div>
                             <button type="button" class="btn btn-sm btn-link text-primary p-0 fw-bold" onclick="addName(this, <?= $cIdx ?>)">+ Add Topic</button>
-                        </div>
+                        </div> -->
+                        <!-- Nested Sub-items (Chapter Names) -->
+<div class="ms-4 p-3 bg-white rounded-3 border">
+    <label class="small fw-bold text-muted mb-2">Chapter Names / Topics:</label>
+    <div class="names-list">
+        <?php 
+        // FIX: Dono keys check karega (names aur chapterName) taaki error na aaye
+        $topics = $ch['names'] ?? ($ch['chapterName'] ?? ['']); 
+        
+        // Agar topics array nahi hai toh use array mein convert karega
+        if(!is_array($topics)) $topics = [$topics];
+
+        foreach($topics as $name): 
+        ?>
+        <div class="d-flex gap-2 mb-2">
+            <input type="text" name="chapter_names_<?= $cIdx ?>[]" value="<?= htmlspecialchars($name) ?>" class="form-control form-control-sm sub-item-input" placeholder="Topic name">
+            <button type="button" class="btn btn-sm btn-outline-danger px-2" onclick="this.parentElement.remove()">✕</button>
+        </div>
+        <?php endforeach; ?>
+    </div>
+    <button type="button" class="btn btn-sm btn-link text-primary p-0 fw-bold" onclick="addName(this, <?= $cIdx ?>)">+ Add Topic</button>
+</div>
                     </div>
                     <?php endforeach; ?>
                 </div>
