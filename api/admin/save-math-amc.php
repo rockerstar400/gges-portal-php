@@ -1,6 +1,6 @@
 <?php
 // Path: admin/api/admin/save-math-amc.php
-require_once __DIR__ . '/../../../functions.php';
+if (file_exists(__DIR__ . '/../../functions.php')) { require_once __DIR__ . '/../../functions.php'; } else { require_once __DIR__ . '/../../../functions.php'; }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $slug = $_POST['slug'] ?? 'math-amc';
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
     $comps_json = json_encode($comps);
-    
+
 
     try {
         // UPSERT LOGIC: Insert karega agar slug naya hai, Update karega agar slug pehle se hai.

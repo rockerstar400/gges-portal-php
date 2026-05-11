@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../../functions.php';
+if (file_exists(__DIR__ . '/../../functions.php')) { require_once __DIR__ . '/../../functions.php'; } else { require_once __DIR__ . '/../../../functions.php'; }
 
 if(isset($_GET['delete'])) {
     $id = $_GET['delete'];
