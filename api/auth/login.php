@@ -9,7 +9,7 @@ header('Content-Type: application/json');
 if (file_exists(dirname(__DIR__, 2) . '/functions.php')) {
     require_once dirname(__DIR__, 2) . '/functions.php';
 } else {
-    require_once dirname(__DIR__, 3) . '/functions.php';
+    
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
