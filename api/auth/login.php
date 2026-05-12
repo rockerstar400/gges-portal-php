@@ -1,17 +1,18 @@
 <?php
-// 1. Session start sirf ek baar top par
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-// 2. Response type JSON
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
 header('Content-Type: application/json');
 
-// 3. Database include karein
-// require_once '../../functions.php';
-require_once dirname(__DIR__, 3) . '/functions.php';
+/**
+ * SMART PATH LOGIC for login.php
+ * Server: 2 level up | Local: 3 level up
+ */
+if (file_exists(dirname(__DIR__, 2) . '/functions.php')) {
+    require_once dirname(__DIR__, 2) . '/functions.php';
+} else {
+    require_once dirname(__DIR__, 3) . '/functions.php';
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
     $username = trim($_POST['username'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
@@ -22,29 +23,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         global $conn;
+        if (!isset($conn)) { echo json_encode(['success' => false, 'message' => 'DB Connection Fail']); exit; }
 
         $stmt = $conn->prepare("SELECT * FROM admin_users WHERE username = ? LIMIT 1");
         $stmt->execute([$username]);
         $admin = $stmt->fetch();
 
         if ($admin && password_verify($password, $admin['password'])) {
-            // LOGIN SUCCESS
             $_SESSION['admin_id'] = $admin['id'];
             $_SESSION['admin_user'] = $admin['username'];
-
-            echo json_encode([
-                'success' => true, 
-                'message' => 'Welcome back, ' . $admin['username']
-            ]);
+            echo json_encode(['success' => true, 'message' => 'Welcome back']);
         } else {
-            // LOGIN FAILED
-            echo json_encode(['success' => false, 'message' => 'Invalid username or password']);
+            echo json_encode(['success' => false, 'message' => 'Invalid credentials']);
         }
-
     } catch (PDOException $e) {
         echo json_encode(['success' => false, 'message' => 'Database error']);
     }
-} else {
-    echo json_encode(['success' => false, 'message' => 'Method not allowed']);
 }
 ?>
