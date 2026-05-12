@@ -823,7 +823,19 @@ function getTestPrepData($slug) {
     }
     return $res;
 }
-
+/**
+ * Test Preparation ya English Section ka data slug ke zariye fetch karne ke liye
+ */
+function getSectionBySlug($slug) {
+    global $conn;
+    try {
+        $stmt = $conn->prepare("SELECT * FROM test_preparation_data WHERE test_slug = ? LIMIT 1");
+        $stmt->execute([$slug]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        return null;
+    }
+}
 // Admin se data save karne ke liye
 function saveTestPrepData($data) {
     global $conn;
